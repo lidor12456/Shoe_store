@@ -204,4 +204,4 @@ function App() {
     </div>
   );
 }
-export default Store;
+export default App;
