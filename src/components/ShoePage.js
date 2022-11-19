@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "./ShoePage.css";
+import bg from "./images/bg.jpg";
 
 function ShoePage() {
   const [shoeArr, setShoeArr] = useState([]);
@@ -77,42 +79,41 @@ function ShoePage() {
     }
   };
 
-  // console.log(params);
   const displayData = () => {
     return (
       <>
-        <h1>SpecificProduct</h1>
-        <h1>{params.shoeId}</h1>
-
-        <div className="App">
+        <div className="specific-product">
           {errorMes && <h2>{errorMes}</h2>}
+          <h1>SpecificProduct</h1>
+          <span>{params.shoeId}</span>
 
           {isLoading && <h1 className="spinner">Spinner</h1>}
           {setShoeArr.length && (
-            <div className="todos_container">
+            <div className="shoe-container">
               {shoeArr.map(({ brand, model, id, img, done }, mapIndex) => (
-                <div className="todo" key={id}>
-                  <h3
-                    onClick={() => {
-                      handleUpdate(id, done);
-                    }}
-                  >
-                    InStock - {!done ? "V" : "X"}
-                  </h3>
-                  <h3>
-                    <Link to={`/store/${id}`}>brand - {brand}</Link>
-                  </h3>
-                  {/* <h3> brand - {brand}</h3> */}
-                  <h3> model - {model}</h3>
-                  <h3></h3>
-                  <img src={img} alt={brand} />
-                  <button
-                    onClick={() => {
-                      handleDelete(id);
-                    }}
-                  >
-                    Delete
-                  </button>
+                <div className="shoe" key={id}>
+                  <div className="shoe-info">
+                    <h3
+                      onClick={() => {
+                        handleUpdate(id, done);
+                      }}
+                    >
+                      InStock - {!done ? "V" : "X"}
+                    </h3>
+                    <h3>Brand - {brand}</h3>
+                    {/* <h3> brand - {brand}</h3> */}
+                    <h3> Model - {model}</h3>
+                    <h3></h3>
+                    <img src={img} alt={brand} />
+                    <br></br>
+                    <button
+                      onClick={() => {
+                        handleDelete(id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

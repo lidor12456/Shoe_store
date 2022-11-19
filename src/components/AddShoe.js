@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "./AddShoe.css";
+import bg from "./images/bg.jpg";
 
 function AddShoe() {
   const [taskArr, setTaskArr] = useState([]);
@@ -56,49 +58,39 @@ function AddShoe() {
   };
 
   return (
-    <div className="App">
+    <div className="add-shoe">
       <h1>Add New Shoe</h1>
       {errorMes && <h2>{errorMes}</h2>}
-      <input
-        value={inputValBrand}
-        placeholder="Brand"
-        onChange={({ target: { value } }) => setInputValBrand(value)}
-      />
-      <input
-        value={inputValModel}
-        placeholder="Model"
-        onChange={({ target: { value } }) => setInputValModel(value)}
-      />
-      <input
-        value={inputImg}
-        placeholder="Image url"
-        onChange={({ target: { value } }) => setInputImg(value)}
-      />
-      <button onClick={handleAddTask}>Add Shoe</button>
-      {/* //? Read */}
+      <div className="inputs">
+        <input
+          value={inputValBrand}
+          placeholder="Brand"
+          onChange={({ target: { value } }) => setInputValBrand(value)}
+        />
+        <input
+          value={inputValModel}
+          placeholder="Model"
+          onChange={({ target: { value } }) => setInputValModel(value)}
+        />
+        <input
+          value={inputImg}
+          placeholder="Image url"
+          onChange={({ target: { value } }) => setInputImg(value)}
+        />
+        <button onClick={handleAddTask}>Add Shoe</button>
+      </div>
 
       {isLoading && <h1 className="spinner">Spinner</h1>}
       {setTaskArr.length && (
-        <div className="todos_container">
+        <div className="shoe-container">
           {taskArr.map(({ brand, model, id, img, done }, mapIndex) => (
-            <div className="todo" key={id}>
-              <h3
-              // onClick={() => {
-              //   handleUpdate(id, done);
-              // }}
-              >
-                InStock - {!done ? "V" : "X"}
-              </h3>
-              <h3> brand - {brand}</h3>
-              <h3> model - {model}</h3>
-              <img src={img} alt={brand} />
-              {/* <button
-                onClick={() => {
-                  handleDelete(id);
-                }}
-              >
-                Delete
-              </button> */}
+            <div className="shoe" key={id}>
+              <div className="shoe-info">
+                <p> Brand - {brand}</p>
+                <p> Model - {model}</p>
+                <p>InStock - {!done ? "V" : "X"}</p>
+                <img src={img} alt={brand} />
+              </div>
             </div>
           ))}
         </div>

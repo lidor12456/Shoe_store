@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "./Nav.css";
 
 function Nav() {
   return (

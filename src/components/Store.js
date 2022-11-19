@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { Routes, Route, Link, useParams } from "react-router-dom";
 import axios from "axios";
+import styles from "./Store.css";
+import bg from "./images/bg.jpg";
 
 function Store() {
   const [shoeArr, setShoeArr] = useState([]);
@@ -52,6 +54,7 @@ function Store() {
   // };
 
   //? Update
+
   const handleUpdate = async (id, oldDone) => {
     try {
       setIsLoading(true);
@@ -79,71 +82,46 @@ function Store() {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const { data } = await axios.delete(
-        `https://63737d12348e9472990dd266.mockapi.io/shoes/${id}`
-      );
-      console.log(data);
-      console.log(shoeArr);
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const { data } = await axios.delete(
+  //       `https://63737d12348e9472990dd266.mockapi.io/shoes/${id}`
+  //     );
+  //     console.log(data);
+  //     console.log(shoeArr);
 
-      console.log(id);
-      setShoeArr((prevState) =>
-        prevState.filter((task) => {
-          return task.id !== data.id;
-        })
-      );
-    } catch (e) {
-      setErrorMes(e.message);
-      setTimeout(() => {
-        setErrorMes(null);
-      }, 1500);
-    }
-  };
+  //     console.log(id);
+  //     setShoeArr((prevState) =>
+  //       prevState.filter((task) => {
+  //         return task.id !== data.id;
+  //       })
+  //     );
+  //   } catch (e) {
+  //     setErrorMes(e.message);
+  //     setTimeout(() => {
+  //       setErrorMes(null);
+  //     }, 1500);
+  //   }
+  // };
 
   return (
-    <div className="App">
+    <div className="store">
       <h1>Our Shoe Collection</h1>
       {errorMes && <h2>{errorMes}</h2>}
-      {/* <input
-        value={inputVal}
-        placeholder="Shoe"
-        onChange={({ target: { value } }) => setInputVal(value)}
-      /> */}
-      {/* <input
-        value={inputImg}
-        placeholder="Image url"
-        onChange={({ target: { value } }) => setInputImg(value)}
-      /> */}
-      {/* <button onClick={handleAddTask}>Add Shoe</button> */}
-      {/* //? Read */}
 
       {isLoading && <h1 className="spinner">Spinner</h1>}
       {setShoeArr.length && (
-        <div className="todos_container">
+        <div className="shoe-container">
           {shoeArr.map(({ brand, model, id, img, done }, mapIndex) => (
-            <div className="todo" key={id}>
-              <h3
-                onClick={() => {
-                  handleUpdate(id, done);
-                }}
-              >
-                InStock - {!done ? "V" : "X"}
-              </h3>
-              <h3>
-                <Link to={`/store/${id}`}>brand - {brand}</Link>
-              </h3>
-              {/* <h3> brand - {brand}</h3> */}
-              <h3> model - {model}</h3>
-              <h3></h3>
-              <img src={img} alt={brand} />
-              <button
-                onClick={() => {
-                  handleDelete(id);
-                }}
-              >
-                Delete
-              </button>
+            <div className="shoe" key={id}>
+              <div className="shoe-info">
+                <p>
+                  <Link to={`/store/${id}`}>Brand - {brand}</Link>
+                </p>
+                <p> Model - {model}</p>
+                <p> InStock - {!done ? "V" : "X"}</p>
+                <img src={img} alt={brand} />
+              </div>
             </div>
           ))}
         </div>
